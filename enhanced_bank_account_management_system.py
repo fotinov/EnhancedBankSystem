@@ -26,11 +26,33 @@ def display_menu():
 
 def create_account():
     """Create a new account."""
-    pass  # TODO: Add logic
+    user_name = input('Enter your first and last name: ')  # TODO: Add logic
+    balance = 0
+    loan = 0
+    user = {
+        'name': user_name,
+        'balance': balance,
+        'loan': loan
+    }
+    account_holders.append(user['name'])
+    balances.append(user['balance'])
+    loans.append(user['loan'])
+    print(f'Account created for {user_name} with initial balance of $0.')
 
-def deposit():
+
+def deposit(user):
     """Deposit money into an account."""
-    pass  # TODO: Add logic
+    user_name = input('Enter your first and last name for confirmation: ')
+    if user_name == user['name']:
+        deposit_money = float(input('Deposit: ')) # TODO: Add logic
+        user['balance'] += deposit_money
+        transaction = f'Deposit money to the account: {deposit_money}'
+        transaction_histories.append(transaction)
+        print(f'Deposit successful. New balance: ${user["balance"]}')
+        return user
+    else:
+        print('Invalid user name. Transaction cancelled.')
+        return user
 
 def withdraw():
     """Withdraw money from an account."""
