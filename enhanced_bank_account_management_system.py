@@ -40,19 +40,24 @@ def create_account():
     print(f'Account created for {user_name} with initial balance of $0.')
 
 
-def deposit(user):
+def deposit(account_holders, balances):
     """Deposit money into an account."""
-    user_name = input('Enter your first and last name for confirmation: ')
-    if user_name == user['name']:
-        deposit_money = float(input('Deposit: ')) # TODO: Add logic
-        user['balance'] += deposit_money
-        transaction = f'Deposit money to the account: {deposit_money}'
-        transaction_histories.append(transaction)
-        print(f'Deposit successful. New balance: ${user["balance"]}')
-        return user
+    print("\n--- Deposit Money ---")
+    user_name = input('Enter your first and last name: ')
+    
+    if user_name in account_holders:
+        index = account_holders.index(user_name)
+        deposit_amount = float(input('Enter the amount to deposit: $'))
+        
+        if deposit_amount > 0:
+            balances[index] += deposit_amount
+            transaction = f'Deposit: ${deposit_amount:.2f}'
+            transaction_histories.append((user_name, transaction))
+            print(f'Deposit successful. New balance: ${balances[index]:.2f}')
+        else:
+            print('Invalid deposit amount. Please enter a positive number.')
     else:
-        print('Invalid user name. Transaction cancelled.')
-        return user
+        print('Account not found. Please check the name and try again.')
 
 def withdraw():
     """Withdraw money from an account."""
@@ -95,7 +100,7 @@ def main():
         if choice == 1:
             create_account()
         elif choice == 2:
-            deposit()
+            deposit(account_holders, balances)
         elif choice == 3:
             withdraw()
         elif choice == 4:
