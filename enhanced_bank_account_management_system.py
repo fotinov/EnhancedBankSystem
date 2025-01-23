@@ -29,14 +29,17 @@ def create_account():
     user_name = input('Enter your first and last name: ')  # TODO: Add logic
     balance = 0
     loan = 0
+    transaction = 0
     user = {
         'name': user_name,
         'balance': balance,
-        'loan': loan
+        'loan': loan,
+        'transaction_history': transaction
     }
     account_holders.append(user['name'])
     balances.append(user['balance'])
     loans.append(user['loan'])
+    transaction_histories.append(user['transaction'])
     print(f'Account created for {user_name} with initial balance of $0.')
 
 
@@ -52,7 +55,7 @@ def deposit(account_holders, balances):
         if deposit_amount > 0:
             balances[index] += deposit_amount
             transaction = f'Deposit: ${deposit_amount:.2f}'
-            transaction_histories.append((user_name, transaction))
+            transaction_histories[index] += transaction
             print(f'Deposit successful. New balance: ${balances[index]:.2f}')
         else:
             print('Invalid deposit amount. Please enter a positive number.')
@@ -61,7 +64,20 @@ def deposit(account_holders, balances):
 
 def withdraw():
     """Withdraw money from an account."""
-    pass  # TODO: Add logic
+    user_name = input('Enter your first and last name: ') # TODO: Add logic
+
+    if user_name in account_holders:
+        index = account_holders.index(user_name)
+        withdraw_amount = float(input('Enter the amount to withdraw: $'))
+
+        if withdraw_amount <= balances[index]:
+            balances[index] -= withdraw_amount
+            transaction = f'Withdrawal: ${withdraw_amount:.2f}'
+            transaction_histories[index] += transaction
+            print(f'Withdrawal successful. New balance: ${balances[index]:.2f}')
+    else:
+        print('Account not found. Please check the name and try again.')
+
 
 def check_balance():
     """Check balance of an account."""
