@@ -8,7 +8,7 @@ loans = []            # Account loan details
 
 MAX_LOAN_AMOUNT = 10000
 INTEREST_RATE = 0.03
-# Account
+
 def display_menu():
     """Main menu for banking system."""
     print("\n🌟 Welcome to Enhanced Bank System 🌟")
