@@ -27,19 +27,17 @@ def display_menu():
 def create_account():
     """Create a new account."""
     user_name = input('Enter your first and last name: ')  # TODO: Add logic
-    balance = 0
-    loan = 0
-    transaction = 0
+
     user = {
         'name': user_name,
-        'balance': balance,
-        'loan': loan,
-        'transaction_history': transaction
+        'balance': 0.00,
+        'loan': 0.00,
+        'transaction_history': []
     }
     account_holders.append(user['name'])
     balances.append(user['balance'])
     loans.append(user['loan'])
-    transaction_histories.append(user['transaction'])
+    transaction_histories.append(user['transaction_history'])
     print(f'Account created for {user_name} with initial balance of $0.')
 
 
@@ -75,6 +73,8 @@ def withdraw():
             transaction = f'Withdrawal: ${withdraw_amount:.2f}'
             transaction_histories[index] += transaction
             print(f'Withdrawal successful. New balance: ${balances[index]:.2f}')
+        else:
+            print('Insufficient balance. Please enter a valid amount.')
     else:
         print('Account not found. Please check the name and try again.')
 
