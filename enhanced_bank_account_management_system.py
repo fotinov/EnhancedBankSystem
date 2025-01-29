@@ -81,14 +81,38 @@ def withdraw():
 
 def check_balance():
     """Check balance of an account."""
+    user_name = input('Enter your first and last name: ') # TODO: Add logic
+
+    if user_name in account_holders:
+        index = account_holders.index(user_name)
+        print(f'Your Balance is: ${balances[index]:.2f}')
     pass  # TODO: Add logic
 
 def list_accounts():
+    for account in account_holders:
+        print(f'Account Holder: {account}, Loans: ${loans[account_holders.index(account)]}, Balance: ${balances[account_holders.index(account)]:.2f}')
+
     """List all account holders and details."""
     pass  # TODO: Add logic
 
 def transfer_funds():
     """Transfer funds between two accounts."""
+    user_name = input('Enter your first and last name: ')  # TODO: Add logic
+    transfer_account = input('Enter the account to transfer funds: ')
+    if transfer_account in account_holders:
+        index = account_holders.index(user_name)
+        transfer_amount = float(input('Enter the amount to transfer: $'))
+
+        if transfer_amount <= balances[index]:
+            balances[index] -= transfer_amount
+            transfer_index = account_holders.index(transfer_account)
+            balances[transfer_index] += transfer_amount
+            transaction = f'Transfer: ${transfer_amount:.2f}'
+            transaction_histories[index] += transaction
+            transaction_histories[transfer_index] += transaction
+            print(f'Transfer successful. New balance for {user_name}: ${balances[index]:.2f}, New balance for {transfer_account}: ${balances[transfer_index]:.2f}')
+        else:
+            print('Insufficient balance. Please enter a valid amount.')
     pass  # TODO: Add logic
 
 def view_transaction_history():
